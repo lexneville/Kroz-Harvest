@@ -37,7 +37,6 @@ namespace Kroz.Classes
         {
             if (this.LocationItems.Count >= 1 )
             {
-                Console.WriteLine("You search the room and find:");
                 foreach (Items item in LocationItems)
                 {
                     item.DisplayItem();

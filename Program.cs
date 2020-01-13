@@ -34,6 +34,8 @@ namespace Kroz
 
             Items Key = new Items("Key", "A large rusted key", "Door", "You have unlocked the door!", true, false);
             Items Door = new Items("Door", "A locked heavy oak door", "Key", "The door was unlocked!", false, true);
+            Items Three = new Items("3", "Test item 3", null, "The door was unlocked!", true, true);
+            Items Four = new Items("3", "Test item 4", null, "The door was unlocked!", true, true);
 
 
             //Console.WriteLine("Item " + Key.ItemName + " has been created");
@@ -43,9 +45,8 @@ namespace Kroz
 
             Cell.AddToLocation(Key);
             Cell.AddToLocation(Door);
-
-
-
+            Cell.AddToLocation(Three);
+            Cell.AddToLocation(Four);
 
             //Console.WriteLine("Your current location contains " + currentLocation.GetCount() + " items."); 
 
@@ -53,6 +54,7 @@ namespace Kroz
             Location currentLocation; 
             currentLocation = Cell;
             currentLocation.DescribeLocation(currentLocation);
+            currentLocation.ListLocationItems();
 
             while (true)
             { 
@@ -70,6 +72,7 @@ namespace Kroz
                     case "L":
                     case "l":
                         {
+                            Console.WriteLine("You search the room and find:");
                             currentLocation.ListLocationItems();
                             break;
                         }
