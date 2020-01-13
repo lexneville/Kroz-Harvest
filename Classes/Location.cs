@@ -10,7 +10,7 @@ namespace Kroz.Classes
         public string LocationName, LocationDescription;
 
         // Each Location has exits to other locations attached, initiate their variebles
-        public Location North, East, South, West, Above, Below;
+        public Location North, East, South, West, Up, Down;
 
         private List<Items> LocationItems = new List<Items>();
         public Location(string LocationName, string LocationDescription)

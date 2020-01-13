@@ -12,6 +12,7 @@ namespace Kroz.Classes
             this.ItemName = ItemName;
             this.ItemDescription = ItemDescription;
             this.ItemInteractionTarget = ItemInteractionTarget;
+
         }
         public void DisplayItem()
         {
