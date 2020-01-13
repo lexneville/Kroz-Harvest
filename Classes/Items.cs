@@ -8,13 +8,15 @@ namespace Kroz.Classes
     {
         public string ItemName, ItemDescription, ItemInteractionTarget, InteractionResult;
         public bool Pickupable;
-        public Items(string ItemName, string ItemDescription, string ItemInteractionTarget, string InteractionResult, bool Pickupable)
+        public bool Locked;
+        public Items(string ItemName, string ItemDescription, string ItemInteractionTarget, string InteractionResult, bool Pickupable, bool Locked)
         {
             this.ItemName = ItemName;
             this.ItemDescription = ItemDescription;
             this.ItemInteractionTarget = ItemInteractionTarget;
             this.InteractionResult = InteractionResult;
             this.Pickupable = Pickupable;
+            this.Locked = Locked;
         }
         public void DisplayItem()
         {
@@ -40,9 +42,5 @@ namespace Kroz.Classes
         {
             return this.Pickupable;
         }
-        //public Items GetItem(Items item) 
-        //{
-
-        //}
     }
 }

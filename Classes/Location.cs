@@ -57,15 +57,29 @@ namespace Kroz.Classes
         {
             if (this.LocationItems.Count >= 1)
             {
-                foreach(Items i in LocationItems)
+                foreach(Items i in this.LocationItems)
                 {
+                    Console.WriteLine(i.ItemName);
                     if (i.ItemName.ToLower() == itemName.ToLower())
                     {
-                        RemoveFromLocation(i);
-                        return i;
+                        Console.WriteLine("This item is located in this location");
+                        if (i.Pickupable == true)
+                        {
+                            RemoveFromLocation(i);
+                            return i;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You cannot take this item");
+                            return null;
+                        }
+                    }
+                    else
+                    {                                                                   
+                        Console.WriteLine("That item is not in this location");
+                        return null;                       
                     }
                 }
-                Console.WriteLine("That item is not in this location");
                 return null;
             }
             else

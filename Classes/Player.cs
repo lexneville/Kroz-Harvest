@@ -19,16 +19,26 @@ namespace Kroz.Classes
             if (item != null)
             { 
                 this.Inventory.Add(item);
-                Console.WriteLine("You now have " + GetCount() + " in the your inventory.");
+                Console.WriteLine("You have taken the " + item.ItemName + "! You now have " + GetCount() + " item/s in your inventory.");
             }
         }
         public void RemoveFromInventory()
         {
 
         }
-        public void UseItem(Items item)
+        public void UseItem(string ItemChoice, string UseTarget)
         {
-
+            foreach (Items i in Inventory)
+            {
+                if (i.ItemName.ToLower() == ItemChoice.ToLower())
+                {
+                    Console.WriteLine("The item is in your inventory");
+                }
+                else
+                {
+                    Console.WriteLine("The item is not in your inventory");
+                }
+            }
         }
         public int GetCount()
         {

@@ -32,8 +32,8 @@ namespace Kroz
 
             // Create items
 
-            Items Key = new Items("Key", "A large rusted key", "Door", "You have unlocked the door!", true);
-            Items Door = new Items("Door", "A locked heavy oak door", "Key", "The door was unlocked!", false);
+            Items Key = new Items("Key", "A large rusted key", "Door", "You have unlocked the door!", true, false);
+            Items Door = new Items("Door", "A locked heavy oak door", "Key", "The door was unlocked!", false, true);
 
 
             //Console.WriteLine("Item " + Key.ItemName + " has been created");
@@ -77,11 +77,18 @@ namespace Kroz
                     case "take":
                     case "T":
                     case "t":
-                        {
-                            Console.WriteLine("Which item would you like to pick up?");
-                            string itemChoice =  Console.ReadLine();
-                            Player.AddToInventory(currentLocation.Take(itemChoice));
-                            break;
+                        {   if (currentLocation.GetCount() >= 1)
+                            {
+                                Console.WriteLine("Which item would you like to pick up?");
+                                string itemChoice = Console.ReadLine().ToLower();
+                                Player.AddToInventory(currentLocation.Take(itemChoice));
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("This room is empty of items!");
+                                break;
+                            }
                         }
                     case "Use":
                     case "use":
@@ -90,17 +97,10 @@ namespace Kroz
                         {
                             Console.WriteLine("Which item would you like to use?");
                             string ItemChoice = Console.ReadLine().ToLower();
-                            Console.WriteLine(ItemChoice);
-                            //Items ItemInUse = Items.GetItem(ItemChoice);
-
-
-
+                            Console.WriteLine("You have chosen to use the " + ItemChoice);
                             Console.WriteLine("What would you like to use the " + ItemChoice + " with?");
-                            string ItemUseTarget = Console.ReadLine();
-                            //if (ItemUseTarget == Items.)
-                            //{
-
-                            //}
+                            string UseTarget = Console.ReadLine().ToLower();
+                            Player.UseItem(ItemChoice, UseTarget);
                             break;
                         }
                     case "Move":
