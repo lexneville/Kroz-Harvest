@@ -32,7 +32,8 @@ namespace Kroz
 
             // Create items
 
-            Items Key = new Items("Key", "A large rusted key", "Door");
+            Items Key = new Items("Key", "A large rusted key", "Door", "You have unlocked the door!", true);
+            Items Door = new Items("Door", "A locked heavy oak door", "Key", "The door was unlocked!", false);
 
 
             //Console.WriteLine("Item " + Key.ItemName + " has been created");
@@ -41,6 +42,7 @@ namespace Kroz
             // populate the locations with the items
 
             Cell.AddToLocation(Key);
+            Cell.AddToLocation(Door);
 
 
 
@@ -87,9 +89,18 @@ namespace Kroz
                     case "u":
                         {
                             Console.WriteLine("Which item would you like to use?");
-                            string ItemInUse = Console.ReadLine();
-                            Console.WriteLine("What would you like to use the " + ItemInUse + " with?");
+                            string ItemChoice = Console.ReadLine().ToLower();
+                            Console.WriteLine(ItemChoice);
+                            //Items ItemInUse = Items.GetItem(ItemChoice);
+
+
+
+                            Console.WriteLine("What would you like to use the " + ItemChoice + " with?");
                             string ItemUseTarget = Console.ReadLine();
+                            //if (ItemUseTarget == Items.)
+                            //{
+
+                            //}
                             break;
                         }
                     case "Move":
@@ -164,7 +175,6 @@ namespace Kroz
                     default:
                         Console.WriteLine("Please choose a valid action!");
                         break;
-
                 }    
             }
         }

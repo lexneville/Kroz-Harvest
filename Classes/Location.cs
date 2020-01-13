@@ -59,7 +59,7 @@ namespace Kroz.Classes
             {
                 foreach(Items i in LocationItems)
                 {
-                    if (i.ItemName == itemName)
+                    if (i.ItemName.ToLower() == itemName.ToLower())
                     {
                         RemoveFromLocation(i);
                         return i;
