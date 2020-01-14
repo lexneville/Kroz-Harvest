@@ -32,7 +32,7 @@ namespace Kroz.Classes
             {
                 if (i.ItemName.ToLower() == ItemChoice.ToLower())
                 {
-                    Console.WriteLine("The item is in your inventory");
+
                 }
                 else
                 {

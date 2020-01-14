@@ -6,7 +6,7 @@ namespace Kroz.Classes
 {
     class Location
     {
-        // Initiate room detail variables
+        // Create room detail variables
         public string LocationName, LocationDescription;
 
         // Each Location has exits to other locations attached, initiate their variebles
@@ -53,15 +53,14 @@ namespace Kroz.Classes
         }
 
         public Items Take(string itemName)
-        {
-            if (this.LocationItems.Count >= 1)
+        {   
+            if (LocationItems.Count > 0)
             {
-                foreach(Items i in this.LocationItems)
+                foreach (Items i in LocationItems)
                 {
-                    Console.WriteLine(i.ItemName);
                     if (i.ItemName.ToLower() == itemName.ToLower())
                     {
-                        Console.WriteLine("This item is located in this location");
+
                         if (i.Pickupable == true)
                         {
                             RemoveFromLocation(i);
@@ -69,16 +68,11 @@ namespace Kroz.Classes
                         }
                         else
                         {
-                            Console.WriteLine("You cannot take this item");
-                            return null;
+                            Console.WriteLine("This object cannot be picked up");
                         }
                     }
-                    else
-                    {                                                                   
-                        Console.WriteLine("That item is not in this location");
-                        return null;                       
-                    }
                 }
+                Console.WriteLine("That item is not in this location");
                 return null;
             }
             else

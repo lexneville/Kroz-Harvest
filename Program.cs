@@ -35,7 +35,7 @@ namespace Kroz
             Items Key = new Items("Key", "A large rusted key", "Door", "You have unlocked the door!", true, false);
             Items Door = new Items("Door", "A locked heavy oak door", "Key", "The door was unlocked!", false, true);
             Items Three = new Items("3", "Test item 3", null, "The door was unlocked!", true, true);
-            Items Four = new Items("3", "Test item 4", null, "The door was unlocked!", true, true);
+            Items Four = new Items("4", "Test item 4", null, "The door was unlocked!", true, true);
 
 
             //Console.WriteLine("Item " + Key.ItemName + " has been created");
@@ -54,7 +54,7 @@ namespace Kroz
             Location currentLocation; 
             currentLocation = Cell;
             currentLocation.DescribeLocation(currentLocation);
-            currentLocation.ListLocationItems();
+            //currentLocation.ListLocationItems();
 
             while (true)
             { 
@@ -97,14 +97,20 @@ namespace Kroz
                     case "use":
                     case "U":
                     case "u":
-                        {
-                            Console.WriteLine("Which item would you like to use?");
-                            string ItemChoice = Console.ReadLine().ToLower();
-                            Console.WriteLine("You have chosen to use the " + ItemChoice);
-                            Console.WriteLine("What would you like to use the " + ItemChoice + " with?");
-                            string UseTarget = Console.ReadLine().ToLower();
-                            Player.UseItem(ItemChoice, UseTarget);
-                            break;
+                        {   if (Player.GetCount() > 1)
+                            {
+                                Console.WriteLine("Which item would you like to use?");
+                                string ItemChoice = Console.ReadLine().ToLower();
+                                Console.WriteLine("What would you like to use the " + ItemChoice + " with?");
+                                string UseTarget = Console.ReadLine().ToLower();
+                                Player.UseItem(ItemChoice, UseTarget);
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Your inventory is empty!");
+                                break;
+                            }
                         }
                     case "Move":
                     case "move":
