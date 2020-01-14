@@ -26,19 +26,38 @@ namespace Kroz.Classes
         {
 
         }
-        public void UseItem(string ItemChoice, string UseTarget)
+        public void UseItem()
         {
+            Console.WriteLine("Which item would you like to use?");
+            string ItemChoice = Console.ReadLine().ToLower();
+
             foreach (Items i in Inventory)
             {
                 if (i.ItemName.ToLower() == ItemChoice.ToLower())
                 {
+                    Console.WriteLine("What would you like to use the " + ItemChoice + " with?");
+                    string UseTarget = Console.ReadLine().ToLower();
 
-                }
-                else
-                {
-                    Console.WriteLine("The item is not in your inventory");
+                    if (i.ItemName.ToLower() == ItemChoice.ToLower())
+                    {
+                        Console.WriteLine("test1" + i.ItemInteractionTarget);
+                        if (i.ItemInteractionTarget.ToLower() == UseTarget)
+                        {
+                            Console.WriteLine("Interaction success!" + i.InteractionResult);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Those items are not compatible");
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
+
+            Console.WriteLine("That item is not in your inventory");
         }
         public int GetCount()
         {

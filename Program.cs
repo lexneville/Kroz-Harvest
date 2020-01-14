@@ -97,13 +97,10 @@ namespace Kroz
                     case "use":
                     case "U":
                     case "u":
-                        {   if (Player.GetCount() > 1)
-                            {
-                                Console.WriteLine("Which item would you like to use?");
-                                string ItemChoice = Console.ReadLine().ToLower();
-                                Console.WriteLine("What would you like to use the " + ItemChoice + " with?");
-                                string UseTarget = Console.ReadLine().ToLower();
-                                Player.UseItem(ItemChoice, UseTarget);
+                        {   
+                            if (Player.GetCount() > 0)
+                            {   
+                                Player.UseItem();
                                 break;
                             }
                             else
