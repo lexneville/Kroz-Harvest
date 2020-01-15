@@ -6,41 +6,41 @@ namespace Kroz.Classes
 {
     class Items
     {
-        public string ItemName, ItemDescription, ItemInteractionTarget, InteractionResult;
-        public bool Pickupable;
-        public bool Locked;
-        public Items(string ItemName, string ItemDescription, string ItemInteractionTarget, string InteractionResult, bool Pickupable, bool Locked)
+        public string itemName, itemDescription, itemInteractionTarget, interactionResult;
+        public bool pickupable;
+        public bool locked;
+        public Items(string itemName, string itemDescription, string itemInteractionTarget, string interactionResult, bool pickupable, bool locked)
         {
-            this.ItemName = ItemName;
-            this.ItemDescription = ItemDescription;
-            this.ItemInteractionTarget = ItemInteractionTarget;
-            this.InteractionResult = InteractionResult;
-            this.Pickupable = Pickupable;
-            this.Locked = Locked;
+            this.itemName = itemName;
+            this.itemDescription = itemDescription;
+            this.itemInteractionTarget = itemInteractionTarget;
+            this.interactionResult = interactionResult;
+            this.pickupable = pickupable;
+            this.locked = locked;
         }
         public void DisplayItem()
         {
-            Console.WriteLine(ItemDescription);
+            Console.WriteLine(itemDescription);
         }
         public string GetItemName()
         {
-            return ItemName;
+            return itemName;
         }
-        public string GetItemDescription()
+        public string GetItemDescription(Items item)
         {
-            return ItemDescription;
+            return item.itemDescription;
         }
         public string GetItemInteractionTarget()
         {
-            return ItemInteractionTarget;
+            return itemInteractionTarget;
         }
         public string GetInteractionResult()
         {
-            return InteractionResult;
+            return interactionResult;
         }
         public bool GetPickupableBool()
         {
-            return Pickupable;
+            return pickupable;
         }
     }
 }

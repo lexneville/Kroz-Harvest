@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kroz.Classes
 {
@@ -14,15 +13,15 @@ namespace Kroz.Classes
         public Player(string PlayerName)
         {
             this.PlayerName = PlayerName;
-            PlayerHealth = 100;
-            PlayerMana = 100;
+            this.PlayerHealth = 100;
+            this.PlayerMana = 100;
         }
         public void AddToInventory(Items item)
         {
             if (item != null)
             { 
                 Inventory.Add(item);
-                Console.WriteLine("You have taken the " + item.ItemName + "! You now have " + GetCount() + " item/s in your inventory.");
+                Console.WriteLine($"You have taken the { item.itemName }! You now have { GetCount() } item/s in your inventory.");
             }
         }
         public void RemoveFromInventory()
@@ -36,17 +35,17 @@ namespace Kroz.Classes
 
             foreach (Items i in Inventory)
             {
-                if (i.ItemName.ToLower() == ItemChoice.ToLower())
+                if (i.itemName.ToLower() == ItemChoice.ToLower())
                 {
-                    Console.WriteLine("What would you like to use the " + ItemChoice + " with?");
+                    Console.WriteLine($"What would you like to use the { ItemChoice } with?");
                     string UseTarget = Console.ReadLine().ToLower();
 
-                    if (i.ItemName.ToLower() == ItemChoice.ToLower())
+                    if (i.itemName.ToLower() == ItemChoice.ToLower())
                     {
-                        Console.WriteLine("test1" + i.ItemInteractionTarget);
-                        if (i.ItemInteractionTarget.ToLower() == UseTarget)
+                        Console.WriteLine("test1" + i.itemInteractionTarget);
+                        if (i.itemInteractionTarget.ToLower() == UseTarget)
                         {
-                            Console.WriteLine("Interaction success! " + i.InteractionResult);
+                            Console.WriteLine($"Interaction success! { i.interactionResult} ");
                         }
                         else
                         {

@@ -7,38 +7,38 @@ namespace Kroz.Classes
     class Location
     {
         // Create room detail variables
-        public string LocationName, LocationDescription;
+        public string locationName, locationDescription;
 
         // Each Location has exits to other locations attached, initiate their variebles
-        public Location North, East, South, West, Up, Down;
+        public Location north, east, south, west, uUp, down;
 
-        private List<Items> LocationItems = new List<Items>();
+        private List<Items> locationItems = new List<Items>();
 
         public Location(string LocationName, string LocationDescription)
         {
-            this.LocationName = LocationName;
-            this.LocationDescription = LocationDescription;
+            this.locationName = LocationName;
+            this.locationDescription = LocationDescription;
         }
         
         public void AddToLocation(Items item)
         {
             Items newItem = item;
-            LocationItems.Add(newItem);
+            locationItems.Add(newItem);
         }
         public void RemoveFromLocation(Items item)
         {
-            LocationItems.Remove(item);
+            locationItems.Remove(item);
             Console.WriteLine("Item taken.");
         }
-        public void DescribeLocation(Location currentLocation)
+        public void DescribeLocation(Location CurrentLocation)
         {
-            Console.WriteLine("You are standing in a " + LocationName + ", " + LocationDescription);
+            Console.WriteLine($"You are standing in a { locationName }, { locationDescription}");
         }
         public void ListLocationItems()
         {
-            if (LocationItems.Count > 0)
+            if (locationItems.Count > 0)
             {
-                foreach (Items item in LocationItems)
+                foreach (Items item in locationItems)
                 {
                     item.DisplayItem();
                 }   
@@ -50,19 +50,19 @@ namespace Kroz.Classes
         }
         public int GetCount()
         {
-            return LocationItems.Count;
+            return locationItems.Count;
         }
 
         public Items Take(string itemName)
         {   
-            if (LocationItems.Count > 0)
+            if (locationItems.Count > 0)
             {
-                foreach (Items i in LocationItems)
+                foreach (Items i in locationItems)
                 {
-                    if (i.ItemName.ToLower() == itemName.ToLower())
+                    if (i.itemName.ToLower() == itemName.ToLower())
                     {
 
-                        if (i.Pickupable == true)
+                        if (i.pickupable == true)
                         {
                             RemoveFromLocation(i);
                             return i;

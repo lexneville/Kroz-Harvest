@@ -23,14 +23,14 @@ namespace Kroz
 
             // Link locations
 
-            Cell.North = GuardRoom;
-            GuardRoom.South = Cell;
+            Cell.north = GuardRoom;
+            GuardRoom.south = Cell;
 
-            GuardRoom.West = Room3;
-            Room3.East = GuardRoom;
+            GuardRoom.west = Room3;
+            Room3.east = GuardRoom;
 
-            GuardRoom.East = Room4;
-            Room4.West = GuardRoom;
+            GuardRoom.east = Room4;
+            Room4.west = GuardRoom;
 
 
             // Create items
@@ -117,10 +117,10 @@ namespace Kroz
                         {
                             Console.WriteLine("Which direction would you like to go?");
                             Console.WriteLine("Exits: {0}{1}{2}{3}",
-                                CurrentLocation.North == null ? "" : "North ",
-                                CurrentLocation.East == null ? "" : "East ",
-                                CurrentLocation.South == null ? "" : "South ",
-                                CurrentLocation.West == null ? "" : "West");
+                                CurrentLocation.north == null ? "" : "North ",
+                                CurrentLocation.east == null ? "" : "East ",
+                                CurrentLocation.south == null ? "" : "South ",
+                                CurrentLocation.west == null ? "" : "West");
                             string TravelDirection = Console.ReadLine();
                             switch (TravelDirection)
                             {
@@ -128,48 +128,48 @@ namespace Kroz
                                 case "north":
                                 case "N":
                                 case "n":
-                                    if (CurrentLocation.North != null)
-                                        CurrentLocation = CurrentLocation.North;
+                                    if (CurrentLocation.north != null)
+                                        CurrentLocation = CurrentLocation.north;
                                     break;
 
                                 case "East":
                                 case "east":
                                 case "E":
                                 case "e":
-                                    if (CurrentLocation.East != null)
-                                        CurrentLocation = CurrentLocation.East;
+                                    if (CurrentLocation.east != null)
+                                        CurrentLocation = CurrentLocation.east;
                                     break;
 
                                 case "South":
                                 case "south":
                                 case "S":
                                 case "s":
-                                    if (CurrentLocation.South != null)
-                                        CurrentLocation = CurrentLocation.South;
+                                    if (CurrentLocation.south != null)
+                                        CurrentLocation = CurrentLocation.south;
                                     break;
 
                                 case "West":
                                 case "west":
                                 case "W":
                                 case "w":
-                                    if (CurrentLocation.West != null)
-                                        CurrentLocation = CurrentLocation.West;
+                                    if (CurrentLocation.west != null)
+                                        CurrentLocation = CurrentLocation.west;
                                     break;
 
                                 case "Up":
                                 case "up":
                                 case "U":
                                 case "u":
-                                    if (CurrentLocation.Up != null)
-                                        CurrentLocation = CurrentLocation.Up;
+                                    if (CurrentLocation.uUp != null)
+                                        CurrentLocation = CurrentLocation.uUp;
                                     break;
 
                                 case "Down":
                                 case "down":
                                 case "D":
                                 case "d":
-                                    if (CurrentLocation.Down != null)
-                                        CurrentLocation = CurrentLocation.Down;
+                                    if (CurrentLocation.down != null)
+                                        CurrentLocation = CurrentLocation.down;
                                     break;
 
                                 default:
