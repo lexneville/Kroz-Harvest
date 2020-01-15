@@ -24,23 +24,23 @@ namespace Kroz.Classes
         }
         public string GetItemName()
         {
-            return this.ItemName;
+            return ItemName;
         }
         public string GetItemDescription()
         {
-            return this.ItemDescription;
+            return ItemDescription;
         }
         public string GetItemInteractionTarget()
         {
-            return this.ItemInteractionTarget;
+            return ItemInteractionTarget;
         }
         public string GetInteractionResult()
         {
-            return this.InteractionResult;
+            return InteractionResult;
         }
         public bool GetPickupableBool()
         {
-            return this.Pickupable;
+            return Pickupable;
         }
     }
 }

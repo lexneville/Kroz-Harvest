@@ -43,7 +43,7 @@ namespace Kroz.Classes
                         Console.WriteLine("test1" + i.ItemInteractionTarget);
                         if (i.ItemInteractionTarget.ToLower() == UseTarget)
                         {
-                            Console.WriteLine("Interaction success!" + i.InteractionResult);
+                            Console.WriteLine("Interaction success! " + i.InteractionResult);
                         }
                         else
                         {

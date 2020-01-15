@@ -13,6 +13,7 @@ namespace Kroz.Classes
         public Location North, East, South, West, Up, Down;
 
         private List<Items> LocationItems = new List<Items>();
+
         public Location(string LocationName, string LocationDescription)
         {
             this.LocationName = LocationName;
@@ -22,7 +23,7 @@ namespace Kroz.Classes
         public void AddToLocation(Items item)
         {
             Items newItem = item;
-            this.LocationItems.Add(newItem);
+            LocationItems.Add(newItem);
         }
         public void RemoveFromLocation(Items item)
         {
@@ -35,7 +36,7 @@ namespace Kroz.Classes
         }
         public void ListLocationItems()
         {
-            if (this.LocationItems.Count >= 1 )
+            if (LocationItems.Count > 0)
             {
                 foreach (Items item in LocationItems)
                 {
@@ -49,7 +50,7 @@ namespace Kroz.Classes
         }
         public int GetCount()
         {
-            return this.LocationItems.Count;
+            return LocationItems.Count;
         }
 
         public Items Take(string itemName)

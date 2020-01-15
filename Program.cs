@@ -7,54 +7,13 @@ namespace Kroz
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("New player, please enter your name.");
-            string NewPlayerName = Console.ReadLine();
-            Player Player = new Player(NewPlayerName);
-            Console.WriteLine("Welcome " + Player.PlayerName);
+            Setup Setup = new Setup();
 
-            Location Cell = new Location("Cell", "A dark gloomy room with a heavy wooden door." );
-            //Console.WriteLine("Room " + EscapeRoom.LocationName + " has been created");
-            Location GuardRoom = new Location("GuardRoom", "A Guardroom.");
-            Location Room3 = new Location("Room3", "A room numbered 3.");
-            Location Room4 = new Location("Room4", "A room numbered 4.");
-
-            // Link Locations
-            Cell.North = GuardRoom;
-            GuardRoom.South = Cell;
-
-            GuardRoom.West = Room3;
-            Room3.East = GuardRoom;
-
-            GuardRoom.East = Room4;
-            Room4.West = GuardRoom;
+            Setup.SetupPlayer();
+            Setup.SetupLocations();
 
 
 
-            // Create items
-
-            Items Key = new Items("Key", "A large rusted key", "Door", "You have unlocked the door!", true, false);
-            Items Door = new Items("Door", "A locked heavy oak door", "Key", "The door was unlocked!", false, true);
-            Items Three = new Items("3", "Test item 3", null, "The door was unlocked!", true, true);
-            Items Four = new Items("4", "Test item 4", null, "The door was unlocked!", true, true);
-
-
-            //Console.WriteLine("Item " + Key.ItemName + " has been created");
-
-
-            // populate the locations with the items
-
-            Cell.AddToLocation(Key);
-            Cell.AddToLocation(Door);
-            Cell.AddToLocation(Three);
-            Cell.AddToLocation(Four);
-
-            //Console.WriteLine("Your current location contains " + currentLocation.GetCount() + " items."); 
-
-            // Initialise, set and describe initial location
-            Location currentLocation; 
-            currentLocation = Cell;
-            currentLocation.DescribeLocation(currentLocation);
-            //currentLocation.ListLocationItems();
 
             while (true)
             { 
