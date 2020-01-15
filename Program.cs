@@ -7,10 +7,52 @@ namespace Kroz
     {
         static void Main(string[] args)
         {
-            Setup Setup = new Setup();
+            // Setup player
 
-            Setup.SetupPlayer();
-            Setup.SetupLocations();
+            Console.WriteLine("New player, please enter your name.");
+            string NewPlayerName = Console.ReadLine();
+            Player Player = new Player(NewPlayerName);
+            Console.WriteLine("Welcome " + Player.PlayerName);
+
+            // Create locations 
+
+            Location Cell = new Location("Cell", "A dark gloomy room with a heavy wooden door.");
+            Location GuardRoom = new Location("GuardRoom", "A Guardroom.");
+            Location Room3 = new Location("Room3", "A room numbered 3.");
+            Location Room4 = new Location("Room4", "A room numbered 4.");
+
+            // Link locations
+
+            Cell.North = GuardRoom;
+            GuardRoom.South = Cell;
+
+            GuardRoom.West = Room3;
+            Room3.East = GuardRoom;
+
+            GuardRoom.East = Room4;
+            Room4.West = GuardRoom;
+
+
+            // Create items
+
+            Items Key = new Items("Key", "A large rusted key", "Door", "You have unlocked the door!", true, false);
+            Items Door = new Items("Door", "A locked heavy oak door", "Key", "The door was unlocked!", false, true);
+            Items Three = new Items("3", "Test item 3", null, "The door was unlocked!", true, true);
+            Items Four = new Items("4", "Test item 4", null, "The door was unlocked!", true, true);
+
+
+            // populate the locations with the items
+
+            Cell.AddToLocation(Key);
+            Cell.AddToLocation(Door);
+            Cell.AddToLocation(Three);
+            GuardRoom.AddToLocation(Four);
+
+            // Initialise, set and describe initial location
+            Location CurrentLocation;
+            CurrentLocation = Cell;
+            CurrentLocation.DescribeLocation(CurrentLocation);
+            //currentLocation.ListLocationItems();
 
 
 
@@ -32,18 +74,18 @@ namespace Kroz
                     case "l":
                         {
                             Console.WriteLine("You search the room and find:");
-                            currentLocation.ListLocationItems();
+                            CurrentLocation.ListLocationItems();
                             break;
                         }
                     case "Take":
                     case "take":
                     case "T":
                     case "t":
-                        {   if (currentLocation.GetCount() >= 1)
+                        {   if (CurrentLocation.GetCount() >= 1)
                             {
                                 Console.WriteLine("Which item would you like to pick up?");
                                 string itemChoice = Console.ReadLine().ToLower();
-                                Player.AddToInventory(currentLocation.Take(itemChoice));
+                                Player.AddToInventory(CurrentLocation.Take(itemChoice));
                                 break;
                             }
                             else
@@ -75,10 +117,10 @@ namespace Kroz
                         {
                             Console.WriteLine("Which direction would you like to go?");
                             Console.WriteLine("Exits: {0}{1}{2}{3}",
-                                currentLocation.North == null ? "" : "North ",
-                                currentLocation.East == null ? "" : "East ",
-                                currentLocation.South == null ? "" : "South ",
-                                currentLocation.West == null ? "" : "West");
+                                CurrentLocation.North == null ? "" : "North ",
+                                CurrentLocation.East == null ? "" : "East ",
+                                CurrentLocation.South == null ? "" : "South ",
+                                CurrentLocation.West == null ? "" : "West");
                             string TravelDirection = Console.ReadLine();
                             switch (TravelDirection)
                             {
@@ -86,55 +128,55 @@ namespace Kroz
                                 case "north":
                                 case "N":
                                 case "n":
-                                    if (currentLocation.North != null)
-                                        currentLocation = currentLocation.North;
+                                    if (CurrentLocation.North != null)
+                                        CurrentLocation = CurrentLocation.North;
                                     break;
 
                                 case "East":
                                 case "east":
                                 case "E":
                                 case "e":
-                                    if (currentLocation.East != null)
-                                        currentLocation = currentLocation.East;
+                                    if (CurrentLocation.East != null)
+                                        CurrentLocation = CurrentLocation.East;
                                     break;
 
                                 case "South":
                                 case "south":
                                 case "S":
                                 case "s":
-                                    if (currentLocation.South != null)
-                                        currentLocation = currentLocation.South;
+                                    if (CurrentLocation.South != null)
+                                        CurrentLocation = CurrentLocation.South;
                                     break;
 
                                 case "West":
                                 case "west":
                                 case "W":
                                 case "w":
-                                    if (currentLocation.West != null)
-                                        currentLocation = currentLocation.West;
+                                    if (CurrentLocation.West != null)
+                                        CurrentLocation = CurrentLocation.West;
                                     break;
 
                                 case "Up":
                                 case "up":
                                 case "U":
                                 case "u":
-                                    if (currentLocation.Up != null)
-                                        currentLocation = currentLocation.Up;
+                                    if (CurrentLocation.Up != null)
+                                        CurrentLocation = CurrentLocation.Up;
                                     break;
 
                                 case "Down":
                                 case "down":
                                 case "D":
                                 case "d":
-                                    if (currentLocation.Down != null)
-                                        currentLocation = currentLocation.Down;
+                                    if (CurrentLocation.Down != null)
+                                        CurrentLocation = CurrentLocation.Down;
                                     break;
 
                                 default:
                                     Console.WriteLine("Please choose a valid direction!");
                                     break;
                             }
-                            currentLocation.DescribeLocation(currentLocation);
+                            CurrentLocation.DescribeLocation(CurrentLocation);
                             break;
                         }
                     default:
