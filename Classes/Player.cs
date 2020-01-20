@@ -6,16 +6,16 @@ namespace Kroz.Classes
 {
     class Player
     {
-        public string PlayerName { get; set; }
-        public int PlayerHealth { get; set; }
-        public int PlayerMana { get; set; }
+        private string name { get; set; }
+        private int health { get; set; }
+        private int mana { get; set; }
 
         private List<Items> Inventory = new List<Items>();
-        public Player(string PlayerName)
+        public Player(string name)
         {
-            this.PlayerName = PlayerName;
-            PlayerHealth = 100;
-            PlayerMana = 100;
+            this.name = name;
+            health = 100;
+            mana = 100;
         }
         public void AddToInventory(Items item)
         {
@@ -65,6 +65,24 @@ namespace Kroz.Classes
         public int GetCount()
         {
             return Inventory.Count;
+        }
+        public string GetName()
+        {
+            return name;
+        }
+        public int GetHealth(Player player)
+        {
+            return health;
+        }
+        public void TakeHealth(Player player, int healthChange)
+        {
+
+            health -= healthChange;
+        }
+
+        public void Heal(Player player, int healthChange)
+        {
+            health += healthChange;
         }
     }
 }

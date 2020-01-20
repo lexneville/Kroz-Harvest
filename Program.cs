@@ -7,12 +7,24 @@ namespace Kroz
     {
         static void Main(string[] args)
         {
-            // Setup player
+            // Setup player and enemies
 
             Console.WriteLine("New player, please enter your name.");
             string NewPlayerName = Console.ReadLine();
             Player Player = new Player(NewPlayerName);
-            Console.WriteLine("Welcome " + Player.PlayerName);
+            Console.WriteLine("Welcome " + Player.GetName());
+            Enemy goblin = new Enemy("Goblin", 50, 0);
+            Enemy Troll = new Enemy("Troll", 150, 0);
+            Enemy DarkWizard = new Enemy("Dark Wizard", 100, 100);
+            Enemy Wraith = new Enemy("Wraith", 50, 150);
+            Enemy currentEnemy = goblin;
+            Player currentPlayer = Player;
+
+            Random rand = new Random();
+
+            int playerRoll, enemyRoll;
+            string playerName = currentPlayer.GetName();
+            string enemyName = currentEnemy.GetName();
 
             // Create locations 
 
@@ -54,8 +66,110 @@ namespace Kroz
             CurrentLocation.DescribeLocation(CurrentLocation);
             //currentLocation.ListLocationItems();
 
+            int playerHealth()
+            {
+                return currentPlayer.GetHealth(currentPlayer);
+            };
 
+            int enemyHealth()
+            {
+                return currentEnemy.GetHealth(currentEnemy);
+            };
 
+            int RollDice(int maxValue)
+            {
+                return rand.Next(1, maxValue);
+            };
+
+            void Potion(int healthIncrease)
+            {
+                currentPlayer.Heal(currentPlayer, healthIncrease);
+            }
+
+            void Encounter()
+            {
+                void PhysicalAttack()
+                {
+                    Console.WriteLine("Press a key to roll the dice and attack!");
+                    Console.WriteLine("If you roll higher than the enemy rolls, your strike is successful");
+                    Console.ReadKey();
+                    Console.WriteLine();
+                    playerRoll = RollDice(6);
+                    enemyRoll = RollDice(6);
+
+                    // string playerChoices = "";
+                    void RollResult()
+                    {
+                        Console.WriteLine($"{playerName} has rolled {playerRoll}, the {enemyName} has rolled {enemyRoll}");
+                    };
+
+                    void HealthDisplay()
+                    {
+                        Console.WriteLine($"The {playerName} now has {playerHealth()} HP");
+                        Console.WriteLine($"The {enemyName} now has {enemyHealth()} HP");
+                    };
+
+                    if (playerRoll > enemyRoll)
+                    {
+                        RollResult();
+                        Console.WriteLine($"{playerName} wins the roll, your attack was successful!");
+                        Console.WriteLine("Hit a key to roll a D20 for damage amount");
+                        int playerDamageRoll = RollDice(20);
+                        Console.WriteLine($"{enemyName}'s health has been reduced by {playerDamageRoll} HP");
+                        currentEnemy.TakeHealth(currentEnemy, playerDamageRoll);
+                        HealthDisplay();
+                    }
+
+                    else if (playerRoll < enemyRoll)
+                    {
+                        RollResult();
+                        Console.WriteLine($"{enemyName} wins the roll, your attack was blocked and the {enemyName} strikes back!");
+                        Console.WriteLine($"The {enemyName} rolls a D12 for damage");
+                        int enemyDamageRoll = RollDice(12);
+                        Console.WriteLine($"{playerName}'s health has been reduced by {enemyDamageRoll} HP");
+                        currentPlayer.TakeHealth(currentPlayer, enemyDamageRoll);
+                        HealthDisplay();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your weapons clash against each other!");
+                    }
+
+                }
+                Console.WriteLine($"You encounter a {enemyName}");
+
+                do // Encounter Loop
+                {
+                    Console.WriteLine
+                        (
+                        "Pick an action\n" +
+                        "Strike - S\n" +
+                        "Inventory - I\n" +
+                        "Use - U\n" +
+                        "Escape - E\n"
+                        );
+                    string encounterCommand = Console.ReadLine().ToLower();
+
+                    switch (encounterCommand)
+                    {
+                        case "s":
+                            PhysicalAttack();
+                            break;
+                        case "i":
+                            break;
+                        case "u":
+                            break;
+                        case "e":
+                            break;
+                        default:
+                            Console.WriteLine("Please choose a valid command!");
+                            break;
+
+                    }
+
+                } while (enemyHealth() > 0 && playerHealth() > 0);
+
+            }
 
             while (true)
             { 
