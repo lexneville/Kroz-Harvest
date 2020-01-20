@@ -1,5 +1,8 @@
 ﻿using System;
 using Kroz.Classes;
+using static System.Environment;
+using static System.Console;
+using System.Collections.Generic;
 
 namespace Kroz
 {
@@ -7,33 +10,50 @@ namespace Kroz
     {
         static void Main(string[] args)
         {
+
+            //using static Environment
             // Setup player and enemies
 
-            Console.WriteLine("New player, please enter your name.");
-            string NewPlayerName = Console.ReadLine();
-            Player Player = new Player(NewPlayerName);
-            Console.WriteLine("Welcome " + Player.GetName());
-            Enemy goblin = new Enemy("Goblin", 50, 0);
-            Enemy Troll = new Enemy("Troll", 150, 0);
-            Enemy DarkWizard = new Enemy("Dark Wizard", 100, 100);
-            Enemy Wraith = new Enemy("Wraith", 50, 150);
-            Enemy currentEnemy = goblin;
-            Player currentPlayer = Player;
+            WriteLine("New player, please enter your name.");
+            string NewPlayerName = ReadLine();
+            var Player = new Player(NewPlayerName);
+            WriteLine("Welcome " + Player.GetName());
+            var Goblin = new Enemy("Goblin", 50, 0);
+            var Troll = new Enemy("Troll", 150, 0);
+            var DarkWizard = new Enemy("Dark Wizard", 100, 100);
+            var Wraith = new Enemy("Wraith", 150, 150);
+            var currentEnemy = Goblin;
+            var currentPlayer = Player;
 
             Random rand = new Random();
 
             int playerRoll, enemyRoll;
-            string playerName = currentPlayer.GetName();
-            string enemyName = currentEnemy.GetName();
 
             // Create locations 
 
-            Location Cell = new Location("Cell", "A dark gloomy room with a heavy wooden door.");
-            Location GuardRoom = new Location("GuardRoom", "A Guardroom.");
-            Location Room3 = new Location("Room3", "A room numbered 3.");
-            Location Room4 = new Location("Room4", "A room numbered 4.");
 
+
+            Location Cell = new Location("Cell", "A dark gloomy room with a heavy wooden door.", true, null);
+            Location GuardRoom = new Location("GuardRoom", "A Guardroom.", true, null);
+            Location Room3 = new Location("Room3", "A room numbered 3.", false, Wraith);
+            Location Room4 = new Location("Room4", "A room numbered 4.", false, Goblin);
+
+
+            //var locationStore = new Dictionary<string, Location>
+            //{
+            //    {"Cell", Cell},
+            //    {"GuardRoom", Cell},
+            //    // todo: complete this
+            //};
+
+            //Cell.AddNorthRoom("GuardRoom");
+            
             // Link locations
+
+            //locationStore.TryGetValue("Cell" , out var location)
+            //    {
+            //    location.north = 
+            //}
 
             Cell.north = GuardRoom;
             GuardRoom.south = Cell;
@@ -61,9 +81,10 @@ namespace Kroz
             GuardRoom.AddToLocation(Four);
 
             // Initialise, set and describe initial location
-            Location CurrentLocation;
-            CurrentLocation = Cell;
-            CurrentLocation.DescribeLocation(CurrentLocation);
+            Location currentLocation;
+            Location previousLocation;
+            currentLocation = Cell;
+            currentLocation.DescribeLocation(currentLocation);
             //currentLocation.ListLocationItems();
 
             int playerHealth()
@@ -90,32 +111,32 @@ namespace Kroz
             {
                 void PhysicalAttack()
                 {
-                    Console.WriteLine("Press a key to roll the dice and attack!");
-                    Console.WriteLine("If you roll higher than the enemy rolls, your strike is successful");
-                    Console.ReadKey();
-                    Console.WriteLine();
+                    WriteLine("Press a key to roll the dice and attack!");
+                    WriteLine("If you roll higher than the enemy rolls, your strike is successful");
+                    ReadKey();
+                    WriteLine();
                     playerRoll = RollDice(6);
                     enemyRoll = RollDice(6);
 
                     // string playerChoices = "";
                     void RollResult()
                     {
-                        Console.WriteLine($"{playerName} has rolled {playerRoll}, the {enemyName} has rolled {enemyRoll}");
+                        WriteLine($"{currentPlayer.GetName()} has rolled {playerRoll}, the {currentLocation.GetLocationEnemy(currentLocation).GetName()} has rolled {enemyRoll}");
                     };
 
                     void HealthDisplay()
                     {
-                        Console.WriteLine($"The {playerName} now has {playerHealth()} HP");
-                        Console.WriteLine($"The {enemyName} now has {enemyHealth()} HP");
+                        WriteLine($"The {currentPlayer.GetName()} now has {playerHealth()} HP");
+                        WriteLine($"The {currentLocation.GetLocationEnemy(currentLocation).GetName()} now has {enemyHealth()} HP");
                     };
 
                     if (playerRoll > enemyRoll)
                     {
                         RollResult();
-                        Console.WriteLine($"{playerName} wins the roll, your attack was successful!");
-                        Console.WriteLine("Hit a key to roll a D20 for damage amount");
+                        WriteLine($"{currentPlayer.GetName()} wins the roll, your attack was successful!");
+                        WriteLine("Hit a key to roll a D20 for damage amount");
                         int playerDamageRoll = RollDice(20);
-                        Console.WriteLine($"{enemyName}'s health has been reduced by {playerDamageRoll} HP");
+                        WriteLine($"{currentLocation.GetLocationEnemy(currentLocation).GetName()}'s health has been reduced by {playerDamageRoll} HP");
                         currentEnemy.TakeHealth(currentEnemy, playerDamageRoll);
                         HealthDisplay();
                     }
@@ -123,32 +144,33 @@ namespace Kroz
                     else if (playerRoll < enemyRoll)
                     {
                         RollResult();
-                        Console.WriteLine($"{enemyName} wins the roll, your attack was blocked and the {enemyName} strikes back!");
-                        Console.WriteLine($"The {enemyName} rolls a D12 for damage");
+                        WriteLine($"{currentLocation.GetLocationEnemy(currentLocation).GetName()} wins the roll, your attack was blocked and the {currentLocation.GetLocationEnemy(currentLocation).GetName()} strikes back!");
+                        WriteLine($"The {currentLocation.GetLocationEnemy(currentLocation).GetName()} rolls a D12 for damage");
                         int enemyDamageRoll = RollDice(12);
-                        Console.WriteLine($"{playerName}'s health has been reduced by {enemyDamageRoll} HP");
+                        WriteLine($"{currentPlayer.GetName()}'s health has been reduced by {enemyDamageRoll} HP");
                         currentPlayer.TakeHealth(currentPlayer, enemyDamageRoll);
                         HealthDisplay();
                     }
+
                     else
                     {
-                        Console.WriteLine("Your weapons clash against each other!");
+                        WriteLine("Your weapons clash against each other!");
                     }
 
                 }
-                Console.WriteLine($"You encounter a {enemyName}");
+                WriteLine($"You encounter a {currentLocation.GetLocationEnemy(currentLocation).GetName()}");
 
                 do // Encounter Loop
                 {
-                    Console.WriteLine
+                    WriteLine
                         (
-                        "Pick an action\n" +
-                        "Strike - S\n" +
-                        "Inventory - I\n" +
-                        "Use - U\n" +
-                        "Escape - E\n"
+                        "Pick an action" + NewLine +
+                        "Strike - S" + NewLine +
+                        "Inventory - I" + NewLine +
+                        "Use - U" + NewLine +
+                        "Escape - E"
                         );
-                    string encounterCommand = Console.ReadLine().ToLower();
+                    string encounterCommand = ReadLine().ToLower();
 
                     switch (encounterCommand)
                     {
@@ -160,9 +182,10 @@ namespace Kroz
                         case "u":
                             break;
                         case "e":
+
                             break;
                         default:
-                            Console.WriteLine("Please choose a valid command!");
+                            WriteLine("Please choose a valid command!");
                             break;
 
                     }
@@ -171,14 +194,26 @@ namespace Kroz
 
             }
 
+            // Game loop
+
             while (true)
             { 
-                Console.WriteLine("What would you like to do?\n" +
-                    "L = Look\n" +
-                    "T = Take\n" +
-                    "U = Use\n" +
+                if (!currentLocation.GetEnemyDefeated())
+                {
+                    currentEnemy = currentLocation.GetLocationEnemy(currentLocation);
+                    WriteLine(currentEnemy.GetName());
+                    WriteLine(currentLocation.GetLocationEnemy(currentLocation).GetName());
+                    Encounter();
+                    currentLocation.SetEnemyDefeated();
+                }
+
+
+                WriteLine("What would you like to do?\n" +
+                    "L = Look" + NewLine +
+                    "T = Take" + NewLine +
+                    "U = Use" + NewLine +
                     "M = Move");
-                string command = Console.ReadLine();
+                string command = ReadLine();
                 
                 switch (command)
                 {
@@ -187,24 +222,24 @@ namespace Kroz
                     case "L":
                     case "l":
                         {
-                            Console.WriteLine("You search the room and find:");
-                            CurrentLocation.ListLocationItems();
+                            WriteLine("You search the room and find:");
+                            currentLocation.ListLocationItems();
                             break;
                         }
                     case "Take":
                     case "take":
                     case "T":
                     case "t":
-                        {   if (CurrentLocation.GetCount() >= 1)
+                        {   if (currentLocation.GetCount() >= 1)
                             {
-                                Console.WriteLine("Which item would you like to pick up?");
-                                string itemChoice = Console.ReadLine().ToLower();
-                                Player.AddToInventory(CurrentLocation.Take(itemChoice));
+                                WriteLine("Which item would you like to pick up?");
+                                string itemChoice = ReadLine().ToLower();
+                                Player.AddToInventory(currentLocation.Take(itemChoice));
                                 break;
                             }
                             else
                             {
-                                Console.WriteLine("This room is empty of items!");
+                                WriteLine("This room is empty of items!");
                                 break;
                             }
                         }
@@ -220,7 +255,7 @@ namespace Kroz
                             }
                             else
                             {
-                                Console.WriteLine("Your inventory is empty!");
+                                WriteLine("Your inventory is empty!");
                                 break;
                             }
                         }
@@ -229,72 +264,72 @@ namespace Kroz
                     case "M":
                     case "m":
                         {
-                            Console.WriteLine("Which direction would you like to go?");
-                            Console.WriteLine("Exits: {0}{1}{2}{3}",
-                                CurrentLocation.north == null ? "" : "North ",
-                                CurrentLocation.east == null ? "" : "East ",
-                                CurrentLocation.south == null ? "" : "South ",
-                                CurrentLocation.west == null ? "" : "West");
-                            string TravelDirection = Console.ReadLine();
+                            WriteLine("Which direction would you like to go?");
+                            WriteLine("Exits: {0}{1}{2}{3}",
+                                currentLocation.north == null ? "" : "North ",
+                                currentLocation.east == null ? "" : "East ",
+                                currentLocation.south == null ? "" : "South ",
+                                currentLocation.west == null ? "" : "West");
+                            string TravelDirection = ReadLine();
                             switch (TravelDirection)
                             {
                                 case "North":
                                 case "north":
                                 case "N":
                                 case "n":
-                                    if (CurrentLocation.north != null)
-                                        CurrentLocation = CurrentLocation.north;
+                                    if (currentLocation.north != null)
+                                        currentLocation = currentLocation.north;
                                     break;
 
                                 case "East":
                                 case "east":
                                 case "E":
                                 case "e":
-                                    if (CurrentLocation.east != null)
-                                        CurrentLocation = CurrentLocation.east;
+                                    if (currentLocation.east != null)
+                                        currentLocation = currentLocation.east;
                                     break;
 
                                 case "South":
                                 case "south":
                                 case "S":
                                 case "s":
-                                    if (CurrentLocation.south != null)
-                                        CurrentLocation = CurrentLocation.south;
+                                    if (currentLocation.south != null)
+                                        currentLocation = currentLocation.south;
                                     break;
 
                                 case "West":
                                 case "west":
                                 case "W":
                                 case "w":
-                                    if (CurrentLocation.west != null)
-                                        CurrentLocation = CurrentLocation.west;
+                                    if (currentLocation.west != null)
+                                        currentLocation = currentLocation.west;
                                     break;
 
                                 case "Up":
                                 case "up":
                                 case "U":
                                 case "u":
-                                    if (CurrentLocation.uUp != null)
-                                        CurrentLocation = CurrentLocation.uUp;
+                                    if (currentLocation.up != null)
+                                        currentLocation = currentLocation.up;
                                     break;
 
                                 case "Down":
                                 case "down":
                                 case "D":
                                 case "d":
-                                    if (CurrentLocation.down != null)
-                                        CurrentLocation = CurrentLocation.down;
+                                    if (currentLocation.down != null)
+                                        currentLocation = currentLocation.down;
                                     break;
 
                                 default:
-                                    Console.WriteLine("Please choose a valid direction!");
+                                    WriteLine("Please choose a valid direction!");
                                     break;
                             }
-                            CurrentLocation.DescribeLocation(CurrentLocation);
+                            currentLocation.DescribeLocation(currentLocation);
                             break;
                         }
                     default:
-                        Console.WriteLine("Please choose a valid action!");
+                        WriteLine("Please choose a valid action!");
                         break;
                 }    
             }

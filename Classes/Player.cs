@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Console;
 
 namespace Kroz.Classes
 {
@@ -21,7 +22,7 @@ namespace Kroz.Classes
             if (item != null)
             { 
                 Inventory.Add(item);
-                Console.WriteLine($"You have taken the { item.itemName }! You now have { GetCount() } item/s in your inventory.");
+                WriteLine($"You have taken the {item.itemName}! You now have {GetCount()} item/s in your inventory.");
             }
         }
         public void RemoveFromInventory()
@@ -30,26 +31,26 @@ namespace Kroz.Classes
         }
         public void UseItem()
         {
-            Console.WriteLine("Which item would you like to use?");
-            string ItemChoice = Console.ReadLine().ToLower();
+            WriteLine("Which item would you like to use?");
+            string ItemChoice = ReadLine().ToLower();
 
             foreach (Items i in Inventory)
             {
                 if (i.itemName.ToLower() == ItemChoice.ToLower())
                 {
-                    Console.WriteLine($"What would you like to use the { ItemChoice } with?");
-                    string UseTarget = Console.ReadLine().ToLower();
+                    WriteLine($"What would you like to use the { ItemChoice } with?");
+                    string UseTarget = ReadLine().ToLower();
 
                     if (i.itemName.ToLower() == ItemChoice.ToLower())
                     {
-                        Console.WriteLine("test1" + i.itemInteractionTarget);
+                        WriteLine("test1" + i.itemInteractionTarget);
                         if (i.itemInteractionTarget.ToLower() == UseTarget)
                         {
-                            Console.WriteLine($"Interaction success! { i.interactionResult} ");
+                            WriteLine($"Interaction success! {i.interactionResult}");
                         }
                         else
                         {
-                            Console.WriteLine("Those items are not compatible");
+                            WriteLine("Those items are not compatible");
                         }
                     }
                     else
@@ -59,7 +60,7 @@ namespace Kroz.Classes
                 }
             }
 
-            Console.WriteLine("That item is not in your inventory");
+            WriteLine("That item is not in your inventory");
         }
         public int GetCount()
         {

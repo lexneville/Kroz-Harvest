@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Environment;
+using static System.Console;
 
 namespace Kroz.Classes
 {
     class Location
     {
         // Create room detail variables
-        public string locationName, locationDescription;
+        private string locationName, locationDescription;
+        private bool enemyDefeated;
+        private Enemy locationEnemy;
 
-        // Each Location has exits to other locations attached, initiate their variebles
-        public Location north, east, south, west, uUp, down;
+
+        // Each Location has exits to other locations attached, initiate their variables
+        public Location north, east, south, west, up, down;
 
         private List<Items> locationItems = new List<Items>();
 
-        public Location(string LocationName, string LocationDescription)
+        public Location(string LocationName, string LocationDescription, bool enemyDefeated, Enemy locationEnemy)
         {
             this.locationName = LocationName;
             this.locationDescription = LocationDescription;
+            this.enemyDefeated = enemyDefeated;
+            this.locationEnemy = locationEnemy;
         }
         
         public void AddToLocation(Items item)
@@ -28,11 +35,26 @@ namespace Kroz.Classes
         public void RemoveFromLocation(Items item)
         {
             locationItems.Remove(item);
-            Console.WriteLine("Item taken.");
+            WriteLine("Item taken.");
         }
         public void DescribeLocation(Location CurrentLocation)
         {
-            Console.WriteLine($"You are standing in a { locationName }, { locationDescription}");
+            WriteLine($"You are standing in a {locationName}, {locationDescription}");
+        }
+
+       
+
+        public bool GetEnemyDefeated()
+        {
+            return this.enemyDefeated;
+        }
+        public void SetEnemyDefeated()
+        {
+            this.enemyDefeated = true;
+        }
+        public Enemy GetLocationEnemy(Location location)
+        {
+            return location.locationEnemy;
         }
         public void ListLocationItems()
         {
@@ -45,7 +67,7 @@ namespace Kroz.Classes
             }   
             else
             {
-                Console.WriteLine("There are no items in the room");
+                WriteLine("There are no items in the room");
             }
         }
         public int GetCount()
@@ -69,16 +91,16 @@ namespace Kroz.Classes
                         }
                         else
                         {
-                            Console.WriteLine("This object cannot be picked up");
+                            WriteLine("This object cannot be picked up");
                         }
                     }
                 }
-                Console.WriteLine("That item is not in this location");
+                WriteLine("That item is not in this location");
                 return null;
             }
             else
             {
-                Console.WriteLine("The room is empty!");
+                WriteLine("The room is empty!");
                 return null;
             }
         }

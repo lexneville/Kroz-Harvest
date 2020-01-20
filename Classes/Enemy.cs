@@ -18,7 +18,7 @@ namespace Kroz.Classes
         }
         public string GetName()
         {
-            return name;
+            return this.name;
         }
         public int GetHealth(Enemy enemy)
         {
