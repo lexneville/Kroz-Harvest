@@ -26,6 +26,11 @@ namespace Kroz.Classes
             this.enemyDefeated = enemyDefeated;
             this.locationEnemy = locationEnemy;
         }
+
+        public string GetLocationName()
+        {
+            return this.locationName;
+        }
         
         public void AddToLocation(Items item)
         {
@@ -41,8 +46,6 @@ namespace Kroz.Classes
         {
             WriteLine($"You are standing in a {locationName}, {locationDescription}");
         }
-
-       
 
         public bool GetEnemyDefeated()
         {

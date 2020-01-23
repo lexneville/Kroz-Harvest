@@ -25,9 +25,10 @@ namespace Kroz.Classes
                 WriteLine($"You have taken the {item.itemName}! You now have {GetCount()} item/s in your inventory.");
             }
         }
-        public void RemoveFromInventory()
+        public void RemoveFromInventory(Items item)
         {
-
+            Inventory.Remove(item);
+            WriteLine("The {0} is no longer in your inventory", item.itemName);
         }
         public void UseItem()
         {
@@ -47,6 +48,7 @@ namespace Kroz.Classes
                         if (i.itemInteractionTarget.ToLower() == UseTarget)
                         {
                             WriteLine($"Interaction success! {i.interactionResult}");
+                            RemoveFromInventory(i);
                         }
                         else
                         {
@@ -58,6 +60,7 @@ namespace Kroz.Classes
                         return;
                     }
                 }
+                return;
             }
 
             WriteLine("That item is not in your inventory");
