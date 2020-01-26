@@ -4,6 +4,7 @@ using static System.Environment;
 using static System.Console;
 using System.Collections.Generic;
 
+
 namespace Kroz
 {
     class Program
@@ -17,7 +18,11 @@ namespace Kroz
             WriteLine("New player, please enter your name.");
             string NewPlayerName = ReadLine();
             var Player = new Player(NewPlayerName);
+            Clear();
             WriteLine("Welcome " + Player.GetName());
+
+
+
             var Goblin = new Enemy("Goblin", 50, 0);
             var Troll = new Enemy("Troll", 150, 0);
             var DarkWizard = new Enemy("Dark Wizard", 100, 100);
@@ -85,8 +90,8 @@ namespace Kroz
             Location currentLocation;
             currentLocation = Cell;
             Location previousLocation = currentLocation;
-            currentLocation.DescribeLocation(currentLocation);
             //currentLocation.ListLocationItems();
+
 
             int playerHealth()
             {
@@ -128,8 +133,19 @@ namespace Kroz
                         WriteLine($"The {currentLocation.GetLocationEnemy(currentLocation).GetName()} now has {enemyHealth()} HP");
                     };
 
+                    Clear();
+
                     if (playerRoll > enemyRoll)
                     {
+                        WriteLine
+                            (
+                            " ██╗██╗██╗    ██╗  ██╗██╗████████╗    ██╗██╗██╗" + NewLine +
+                            " ██║██║██║    ██║  ██║██║╚══██╔══╝    ██║██║██║" + NewLine +
+                            " ██║██║██║    ███████║██║   ██║       ██║██║██║" + NewLine +
+                            " ╚═╝╚═╝╚═╝    ██╔══██║██║   ██║       ╚═╝╚═╝╚═╝" + NewLine +
+                            " ██╗██╗██╗    ██║  ██║██║   ██║       ██╗██╗██╗" + NewLine +
+                            " ╚═╝╚═╝╚═╝    ╚═╝  ╚═╝╚═╝   ╚═╝       ╚═╝╚═╝╚═╝ "
+                            );
                         RollResult();
                         WriteLine($"{currentPlayer.GetName()} wins the roll, your attack was successful!");
                         WriteLine("Hit a key to roll a D20 for damage amount");
@@ -141,6 +157,15 @@ namespace Kroz
 
                     else if (playerRoll < enemyRoll)
                     {
+                        WriteLine
+                            (
+                            " ██╗██╗██╗    ███╗   ███╗██╗███████╗███████╗    ██╗██╗██╗" + NewLine +
+                            " ██║██║██║    ████╗ ████║██║██╔════╝██╔════╝    ██║██║██║" + NewLine +
+                            " ██║██║██║    ██╔████╔██║██║███████╗███████╗    ██║██║██║" + NewLine +
+                            " ╚═╝╚═╝╚═╝    ██║╚██╔╝██║██║╚════██║╚════██║    ╚═╝╚═╝╚═╝" + NewLine +
+                            " ██╗██╗██╗    ██║ ╚═╝ ██║██║███████║███████║    ██╗██╗██╗" + NewLine +
+                            " ╚═╝╚═╝╚═╝    ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝    ╚═╝╚═╝╚═╝"
+                            );
                         RollResult();
                         WriteLine($"{currentLocation.GetLocationEnemy(currentLocation).GetName()} wins the roll, your attack was blocked and the {currentLocation.GetLocationEnemy(currentLocation).GetName()} strikes back!");
                         WriteLine($"The {currentLocation.GetLocationEnemy(currentLocation).GetName()} rolls a D12 for damage");
@@ -213,7 +238,7 @@ namespace Kroz
                         currentLocation.SetEnemyDefeated();
                     }
 
-
+                    currentLocation.DescribeLocation(currentLocation);
                     WriteLine
                         (
                             "What would you like to do?" + NewLine +
@@ -228,6 +253,7 @@ namespace Kroz
                         case "L":
                         case "l":
                             {
+                                Clear();
                                 WriteLine("You search the room and find:");
                                 currentLocation.ListLocationItems();
                                 break;
@@ -238,7 +264,9 @@ namespace Kroz
                         case "t":
                             { if (currentLocation.GetCount() >= 1)
                                 {
+                                    Clear();
                                     WriteLine("Which item would you like to pick up?");
+                                    currentLocation.ListLocationItems();
                                     string itemChoice = ReadLine().ToLower();
                                     Player.AddToInventory(currentLocation.Take(itemChoice));
                                     break;
@@ -270,6 +298,7 @@ namespace Kroz
                         case "M":
                         case "m":
                             {
+                                Clear();
                                 WriteLine("Which direction would you like to go?");
                                 WriteLine("Exits: |{0}{1}{2}{3}|",
                                     currentLocation.north == null ? "" : "| North |",
@@ -351,11 +380,14 @@ namespace Kroz
                                         WriteLine("Please choose a valid direction!");
                                         break;
                                 }
-                                currentLocation.DescribeLocation(currentLocation);
+                                Clear();
+                                
                                 break;
                             }
                         default:
+                            Clear();
                             WriteLine("Please choose a valid action!");
+                            currentLocation.DescribeLocation(currentLocation);
                             break;
                     }
                 }
