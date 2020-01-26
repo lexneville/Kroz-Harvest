@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Kroz.Classes;
 using static System.Environment;
 using static System.Console;
@@ -92,6 +93,21 @@ namespace Kroz
             Location previousLocation = currentLocation;
             //currentLocation.ListLocationItems();
 
+            void Hit()
+            {
+                WriteLine
+                    (
+                    " ██╗██╗██╗    ██╗  ██╗██╗████████╗    ██╗██╗██╗" + NewLine +
+                    " ██║██║██║    ██║  ██║██║╚══██╔══╝    ██║██║██║" + NewLine +
+                    " ██║██║██║    ███████║██║   ██║       ██║██║██║" + NewLine +
+                    " ╚═╝╚═╝╚═╝    ██╔══██║██║   ██║       ╚═╝╚═╝╚═╝" + NewLine +
+                    " ██╗██╗██╗    ██║  ██║██║   ██║       ██╗██╗██╗" + NewLine +
+                    " ╚═╝╚═╝╚═╝    ╚═╝  ╚═╝╚═╝   ╚═╝       ╚═╝╚═╝╚═╝ "
+                    );
+                Thread.Sleep(700);
+                Clear();
+                Thread.Sleep(50);
+            };
 
             int playerHealth()
             {
@@ -137,15 +153,9 @@ namespace Kroz
 
                     if (playerRoll > enemyRoll)
                     {
-                        WriteLine
-                            (
-                            " ██╗██╗██╗    ██╗  ██╗██╗████████╗    ██╗██╗██╗" + NewLine +
-                            " ██║██║██║    ██║  ██║██║╚══██╔══╝    ██║██║██║" + NewLine +
-                            " ██║██║██║    ███████║██║   ██║       ██║██║██║" + NewLine +
-                            " ╚═╝╚═╝╚═╝    ██╔══██║██║   ██║       ╚═╝╚═╝╚═╝" + NewLine +
-                            " ██╗██╗██╗    ██║  ██║██║   ██║       ██╗██╗██╗" + NewLine +
-                            " ╚═╝╚═╝╚═╝    ╚═╝  ╚═╝╚═╝   ╚═╝       ╚═╝╚═╝╚═╝ "
-                            );
+                        Hit();
+                        Hit();
+                        Hit();
                         RollResult();
                         WriteLine($"{currentPlayer.GetName()} wins the roll, your attack was successful!");
                         WriteLine("Hit a key to roll a D20 for damage amount");
