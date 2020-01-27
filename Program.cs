@@ -109,6 +109,22 @@ namespace Kroz
                 Thread.Sleep(50);
             };
 
+            void Miss()
+            {
+                WriteLine
+                (
+                " ██╗██╗██╗    ███╗   ███╗██╗███████╗███████╗    ██╗██╗██╗" + NewLine +
+                " ██║██║██║    ████╗ ████║██║██╔════╝██╔════╝    ██║██║██║" + NewLine +
+                " ██║██║██║    ██╔████╔██║██║███████╗███████╗    ██║██║██║" + NewLine +
+                " ╚═╝╚═╝╚═╝    ██║╚██╔╝██║██║╚════██║╚════██║    ╚═╝╚═╝╚═╝" + NewLine +
+                " ██╗██╗██╗    ██║ ╚═╝ ██║██║███████║███████║    ██╗██╗██╗" + NewLine +
+                " ╚═╝╚═╝╚═╝    ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝    ╚═╝╚═╝╚═╝"
+                );
+                Thread.Sleep(700);
+                Clear();
+                Thread.Sleep(50);
+            }
+
             int playerHealth()
             {
                 return currentPlayer.GetHealth(currentPlayer);
@@ -167,15 +183,9 @@ namespace Kroz
 
                     else if (playerRoll < enemyRoll)
                     {
-                        WriteLine
-                            (
-                            " ██╗██╗██╗    ███╗   ███╗██╗███████╗███████╗    ██╗██╗██╗" + NewLine +
-                            " ██║██║██║    ████╗ ████║██║██╔════╝██╔════╝    ██║██║██║" + NewLine +
-                            " ██║██║██║    ██╔████╔██║██║███████╗███████╗    ██║██║██║" + NewLine +
-                            " ╚═╝╚═╝╚═╝    ██║╚██╔╝██║██║╚════██║╚════██║    ╚═╝╚═╝╚═╝" + NewLine +
-                            " ██╗██╗██╗    ██║ ╚═╝ ██║██║███████║███████║    ██╗██╗██╗" + NewLine +
-                            " ╚═╝╚═╝╚═╝    ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝    ╚═╝╚═╝╚═╝"
-                            );
+                        Miss();
+                        Miss();
+                        Miss();
                         RollResult();
                         WriteLine($"{currentLocation.GetLocationEnemy(currentLocation).GetName()} wins the roll, your attack was blocked and the {currentLocation.GetLocationEnemy(currentLocation).GetName()} strikes back!");
                         WriteLine($"The {currentLocation.GetLocationEnemy(currentLocation).GetName()} rolls a D12 for damage");
